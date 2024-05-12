@@ -1,0 +1,129 @@
+/* Styles pour la classe LED verte */
+.led-green {
+    background-color: green;
+}
+
+/* Styles pour la classe LED rouge */
+.led-red {  
+    background-color: red;
+}
+
+/* Styles pour la LED */
+.led-red,
+.led-green{
+    display: inline-block;
+    width: 21px; /* Largeur de la LED */
+    height: 21px; /* Hauteur de la LED */
+    border-radius: 50%; /* Pour rendre la LED ronde */
+    position: relative; /* Pour positionner la coche correctement */
+    margin-right:25px;
+    margin-left:45px;
+}
+/* Styles pour la coche blanche de la LED rouge */
+.led-red::before,
+.led-red::after {
+    content: ''; /* Obligatoire pour les pseudo-éléments */
+    position: absolute; /* Pour positionner la coche par rapport à la LED */
+    top: 50%; /* Décalage vers le haut de la moitié de la hauteur de la LED */
+    left: 50%; /* Décalage vers la gauche de la moitié de la largeur de la LED */
+    width: 10px; /* Largeur de la coche */
+    height: 3px; /* Hauteur de la coche */
+    background-color: white; /* Couleur de la coche */
+    border-radius: 3px;
+}
+/* Styles pour la coche blanche */
+
+.led-green::after {
+    content: ''; /* Obligatoire pour les pseudo-éléments */
+    position: absolute; /* Pour positionner la coche par rapport à la LED */
+    top: 50%; /* Décalage vers le haut de la moitié de la hauteur de la LED */
+    left: 62%; /* Décalage vers la gauche de la moitié de la largeur de la LED */
+    transform: translate(-52%, -59%) rotate(-47deg); /* Rotation de 45 degrés pour former un V */
+    width: 12px; /* Largeur de la coche */
+    height: 3px; /* Hauteur de la coche */
+    background-color: white; /* Couleur de la coche */
+    border-radius: 3px;
+}
+
+/* Styles pour la première partie du V */
+.led-red::before,
+.led-green::before {
+    transform: translate(-50%, -50%) rotate(45deg); /* Rotation de 45 degrés pour former la première partie du V */
+}
+
+/* Styles pour la deuxième partie du V */
+.led-red::after
+{
+    content: ''; /* Obligatoire pour les pseudo-éléments */
+    position: absolute; /* Pour positionner la coche par rapport à la LED */
+    top: 50%; /* Décalage vers le haut de la moitié de la hauteur de la LED */
+    left: 50%; /* Décalage vers la gauche de la moitié de la largeur de la LED */
+    transform: translate(-50%, -50%) rotate(-45deg); /* Rotation de -45 degrés pour former la deuxième partie du V */
+    width: 10px; /* Largeur de la coche */
+    height: 3px; /* Hauteur de la coche */
+    background-color: white; /* Couleur de la coche */
+    border-radius: 3px;
+}
+
+/* Styles pour la deuxième partie du V */
+
+.led-green::before {
+    content: ''; /* Obligatoire pour les pseudo-éléments */
+    position: absolute; /* Pour positionner la coche par rapport à la LED */
+    top: 59%; /* Décalage vers le haut de la moitié de la hauteur de la LED */
+    left: 53%; /* Décalage vers la gauche de la moitié de la largeur de la LED */
+    transform: translate(-100%, -89%) rotate(45deg); /* Rotation de -45 degrés pour former la deuxième partie du V */
+    width: 08px; /* Largeur de la coche */
+    height: 3px; /* Hauteur de la coche */
+    background-color: white; /* Couleur de la coche */
+    border-radius: 3px;
+}
+
+
+
+function business_hours_table_shortcode()
+{
+    ob_start(); // Start output buffering
+    ?>
+    <div class="business-hours-table-widget-container">
+        <div class="business-hours-table-container">
+            <h3>Horaires de la Galerie</h3>
+            <div class="table">
+                <?php echo display_opening_hours_table('gallerie'); 
+                <div class="business-hours-separator"></div>
+                <div class="week">
+                    <span>Du lundi au samedi</span>
+                    <span>9h30 - 19h30</span>
+                </div>
+                <div class="business-hours-separator"></div>
+                <div class="sunday">
+                    <span>Dimanche</span>
+                    <span>Fermé</span>
+                </div>
+                <div class="business-hours-separator"></div>
+                <?php echo display_exception_hours_frontend('gallerie'); ?>
+            </div>
+        </div>
+        <div class="business-hours-table-container">
+            <h3>Horaires de Carrefour</h3>
+            <div class="table">
+                <?php echo display_opening_hours_table('carrefour'); ?>
+                <div class="business-hours-separator"></div>
+                <div class="week">
+                    <span>Du lundi au samedi</span>
+                    <span>8h30 - 21h00 </span>
+                </div>
+                <div class="business-hours-separator"></div>
+                <div class="sunday">
+                    <span>Dimanche</span>
+                    <span>9h00 - 12h30</span>
+                </div>
+                <div class="business-hours-separator"></div>
+                <?php echo display_exception_hours_frontend('carrefour'); ?>
+            </div>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean(); // Return the output buffer content and clean the buffer
+}
+add_shortcode('business_hours_table', 'business_hours_table_shortcode');
